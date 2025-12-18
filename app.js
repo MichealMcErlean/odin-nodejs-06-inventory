@@ -3,13 +3,16 @@ const { error } = require('console');
 const express = require('express');
 const path = require('path');
 const app = express();
+const indexRouter = require('./routes/indexRouter')
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
+const assetsPath = path.join(__dirname, 'public');
+app.use(express.static(assetsPath));
 
 // Routers
-
+app.use('/', indexRouter);
 //Error Handling
 app.use((error, req, res, next) => {
   console.error('SERVER ERROR:', err.stack);
@@ -27,3 +30,11 @@ app.use((error, req, res, next) => {
     error: process.env.NODE_ENV === 'production' ? {} : err
   });
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, (error) => {
+  if (error) {
+    throw error;
+  }
+  console.log(`Inventory app listening on port ${PORT}`);
+})
