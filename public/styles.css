@@ -115,6 +115,12 @@ article {
   padding: 10px;
 }
 
+button {
+  font-family: 'lexendregular';
+  font-size: 1.8rem;
+  padding: 10px;
+}
+
 .searchForm {
   margin: 10px;
   padding: 10px;
@@ -156,4 +162,30 @@ article {
   justify-content: center;
   justify-items: center;
 }
+
+.gameDetails {
+  line-height: 1.6;
+}
+
+.gameDetails .detailLabel {
+  font-size: 2.4rem;
+  font-weight: bold;
+  justify-self: right;
+}
+
+.gameDetails .detailBlock {
+  display:grid;
+  grid-template-columns: 200px 300px;
+  grid-template-rows: repeat(4, fit-content);
+  align-items: center;
+  gap: 15px;
+}
+
+.gameDetails .buttonBox {
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  justify-content: space-around;
+}
+
 

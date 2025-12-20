@@ -14,27 +14,34 @@
       <p>No game has that ID</p>
     <% } else { %>
       <h1><%= game[0].name %></h1>
-      <p><span class="detailLabel">Price: </span><%= game[0].price %></p>
-      <p><span class="detailLabel">Quantity: </span><%= game[0].quantity %></p>
-      <p><span class="detailLabel">Release Date: </span>
-        <%= game[0].release_date.toDateString() %>
-      </p>
-      <p><span class="detailLabel">Developer: </span>
-        <%= game[0].developer %>
-      </p>
-      <p><span class="detailLabel">Publisher: </span>
-        <%= game[0].publisher %>
-      </p>
-      <div class="genresBox">
-        <p>Genres</p>
-        <p class="genresList"><%= game[0].genres %></p>
+
+      <div class="detailBlock">
+        <span class="detailLabel">Price: </span>
+        <span><%= game[0].price %></span>
+
+        <span class="detailLabel">Quantity: </span>
+        <span><%= game[0].quantity %></span>
+
+        <span class="detailLabel">Release Date: </span>
+        <span><%= game[0].release_date.toDateString() %></span>
+        
+        <span class="detailLabel">Developer: </span>
+        <span><%= game[0].developer %></span>
+        
+        <span class="detailLabel">Publisher: </span>
+        <span><%= game[0].publisher %></span>
+
+        <span class="detailLabel">Genres: </span>
+        <span><%= game[0].genres %></span>
+
+        <span class="detailLabel">Platforms: </span>
+        <span><%= game[0].platforms %></span>
       </div>
-      <div class="platformsBox">
-        <p>Platforms</p>
-        <p class="platformsList"><%= game[0].platforms %></p>
+      
+      <div class="buttonBox">
+        <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button>
+        <button type="button" action="/games/delete/<%= game[0].game_id %>" method="GET">Delete Game</button>
       </div>
-      <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button>
-      <button type="button" action="/games/delete/<%= game[0].game_id %>" method="GET">Delete Game</button>
     <% } %>
   </article>
   <%- include('partials/footer.ejs') %>
