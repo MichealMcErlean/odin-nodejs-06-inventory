@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article class="gameDetails">
+    <% if (!game) {%>
+      <p>No game has that ID</p>
+    <% } else { %>
+      <h1><%= game[0].name %></h1>
+      <p><span class="detailLabel">Price: </span><%= game[0].price %></p>
+      <p><span class="detailLabel">Quantity: </span><%= game[0].quantity %></p>
+      <p><span class="detailLabel">Release Date: </span>
+        <%= game[0].release_date.toDateString() %>
+      </p>
+      <p><span class="detailLabel">Developer: </span>
+        <%= game[0].developer %>
+      </p>
+      <p><span class="detailLabel">Publisher: </span>
+        <%= game[0].publisher %>
+      </p>
+      <div class="genresBox">
+        <p>Genres</p>
+        <p class="genresList"><%= game[0].genres %></p>
+      </div>
+      <div class="platformsBox">
+        <p>Platforms</p>
+        <p class="platformsList"><%= game[0].platforms %></p>
+      </div>
+      <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button>
+      <button type="button" action="/games/delete/<%= game[0].game_id %>" method="GET">Delete Game</button>
+    <% } %>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>
