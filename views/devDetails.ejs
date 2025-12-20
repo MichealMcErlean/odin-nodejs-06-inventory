@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article class="devDetails">
+    <% if (!dev) {%>
+      <p>No game has that ID</p>
+    <% } else { %>
+      <h1><%= dev[0].developer %></h1>
+      <div class="buttonBox">
+        <a href="/developers/update/<%= dev[0].developer_id %>">Update Details</a>
+        <a href="/developers/delete/<%= dev[0].developer_id %>">Delete Developer</a>
+      </div>
+    <% } %>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

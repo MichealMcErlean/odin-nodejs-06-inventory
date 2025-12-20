@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const indexRouter = require('./routes/indexRouter')
 const gamesRouter = require('./routes/gamesRouter')
+const developersRouter = require('./routes/developersRouter')
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -13,6 +14,7 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
 
 // Routers
+app.use('/developers', developersRouter);
 app.use('/games', gamesRouter);
 app.use('/', indexRouter);
 //Error Handling

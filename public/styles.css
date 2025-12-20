@@ -152,12 +152,12 @@ button {
   line-height: 1.5;
 }
 
-.gameList {
+.gameList, .devList {
   margin: 10px;
   padding: 10px;
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  grid-auto-rows: fit-content;
+  grid-auto-rows: 30px;
   gap: 10px;
   justify-content: center;
   justify-items: center;
@@ -188,4 +188,20 @@ button {
   justify-content: space-around;
 }
 
+#devUpdateForm {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 150px 300px;
+  grid-template-rows: 30px min-content;
+  gap: 10px;
+  align-items: center;
+}
+
+#devUpdateForm button {
+  grid-column: 1 / span 2;
+}
+
+#devUpdateForm label {
+  justify-self: right;
+}
 

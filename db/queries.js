@@ -71,6 +71,15 @@ async function getGameById(game_id) {
   return rows;
 }
 
+async function getDevById(developer_id) {
+  const { rows } = await pool.query('SELECT * FROM developers WHERE developer_id = $1', [developer_id]);
+  return rows;
+}
+
+async function updateDevById(developer_id, developer) {
+  await pool.query('UPDATE developers SET developer = $1 WHERE developer_id = $2;', [developer, developer_id]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -79,4 +88,6 @@ module.exports = {
   searchForGames,
   getAllGames,
   getGameById,
+  getDevById,
+  updateDevById,
 }
