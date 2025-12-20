@@ -20,9 +20,63 @@ async function getAllPlatforms() {
   return rows;
 }
 
+async function searchForGames(params) {
+  
+  const [name, developer, publisher, genre, platform] = params;
+
+  const conditions = [];
+  const values = [];
+
+  if (name) {
+    values.push(`%${name}%`);
+    conditions.push(`name like $${values.length}`);
+  }
+  if (developer) {
+    values.push(developer);
+    conditions.push(`developer_id = $${values.length}`);
+  }
+  if (publisher) {
+    values.push(publisher);
+    conditions.push(`publisher_id = $${values.length}`);
+  }
+  if (genre) {
+    values.push(genre);
+    conditions.push(`genre_id = $${values.length}`)
+  }
+  if (platform) {
+    values.push(platform);
+    conditions.push(`platform_id = $${values.length}`);
+  }
+
+  let queryText = 'SELECT game_id, name FROM game_library';
+
+  if (conditions.length > 0) {
+    queryText += ` WHERE ${conditions.join(' AND ')}`;
+  }
+
+  console.log('Executing SQL:', queryText);
+  console.log('With values:', values);
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+}
+
+async function getAllGames() {
+  const {rows} = await pool.query('SELECT game_id, name FROM game_library ORDER BY name;')
+  return rows;
+}
+
+async function getGameById(game_id) {
+  const {rows} = await pool.query('SELECT * FROM game_library WHERE game_id = $1;', [game_id]);
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
   getAllGenres,
   getAllPlatforms,
+  searchForGames,
+  getAllGames,
+  getGameById,
 }

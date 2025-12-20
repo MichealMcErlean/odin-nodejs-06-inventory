@@ -11,7 +11,64 @@
   <%- include('partials/nav') %>
   <article>
     <h1><%= title %></h1>
-    Just a placeholder ... for now. Yes.
+    <form action="/search" method="GET" name="searchForm" class="searchForm">
+      <%- include('partials/errors.ejs') %>
+      <p class="formIntro">Modify one or more of the following:</p>
+      <label for="game">Name: </label>
+      <input type="text" name="game" id="game">
+
+      <label for="developer">Developer: </label>
+      <select name="developer" id="developer">
+        <option value="" disabled selected hidden>Select from:</option>
+        <% if (Array.isArray(developers)) {%>
+          <% developers.forEach( (row) => { %>
+            <option 
+              value="<%= row.developer_id %>"
+            >
+              <%= row.developer %>
+            </option>
+          <% }); %> 
+        <% } %> 
+      </select>
+
+      <label for="publisher">Publisher: </label>
+      <select name="publisher" id="publisher">
+        <option value="" disabled hidden>Select from:</option>
+        <% if (Array.isArray(publishers)) {%>
+          <% publishers.forEach( (row)=> { %>
+            <option value="<%= row.publisher_id %>">
+              <%= row.publisher %>
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+
+      <label for="genre">Genre: </label>
+      <select name="genre" id="genre">
+        <option value="" disabled selected hidden>Select from:</option>
+        <% if (Array.isArray(genres)) {%>
+          <% genres.forEach( (row)=> { %>
+            <option value="<%= row.genre_id %>">
+              <%= row.genre %>
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+
+      <label for="platform">Platform: </label>
+      <select name="platform" id="platform">
+        <option value="" disabled selected hidden>Select from:</option>
+        <% if (Array.isArray(platforms)) {%>
+          <% platforms.forEach( (row)=> { %>
+            <option value="<%= row.platform_id %>">
+              <%= row.platform %>
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+
+      <button type="submit">Search</button>
+    </form>
   </article>
   <%- include('partials/footer.ejs') %>
 </body>
