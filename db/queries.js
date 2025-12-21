@@ -93,6 +93,18 @@ async function devGamesByDevId(developer_id) {
   return rows;
 }
 
+async function addPub({newpubname}) {
+  await pool.query('INSERT INTO publishers (publisher) VALUES ($1);', [newpubname]);
+}
+
+async function pubGetById(publisher_id) {
+  const {rows} = await pool.query('SELECT * FROM publishers WHERE publisher_id = $1;', [publisher_id]);
+}
+
+async function pubGetGamesByPubId(publisher_id) {
+  const {rows} = await pool.query('SELECT game_id, name FROM game_library WHERE publisher_id = $1;', [publisher_id])
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -105,5 +117,8 @@ module.exports = {
   updateDevById,
   addDev,
   deleteDev,
-  devGamesByDevId
+  devGamesByDevId,
+  addPub,
+  pubGetById,
+  pubGetGamesByPubId,
 }

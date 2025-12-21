@@ -113,12 +113,25 @@ article {
   background-color: var(--bg-color-article);
   color: var(--text-color);
   padding: 10px;
+  line-height: 1.8;
 }
 
 button {
   font-family: 'lexendregular';
   font-size: 1.8rem;
   padding: 10px;
+}
+
+button.fakelink {
+  font-size: 1.6rem;
+  border: none;
+  background-color: transparent;
+  color: blue;
+  text-decoration: underline;
+}
+
+button.fakelink:active {
+  color: red;
 }
 
 .searchForm {
