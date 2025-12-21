@@ -16,9 +16,11 @@ exports.showAllDevs = async (req, res, next) => {
 exports.showDevById = async (req, res, next) => {
   const {developer_id} = req.params;
   const dev = await db.getDevById(developer_id);
+  const games = await db.devGamesByDevId(developer_id);
   res.render('devDetails', {
     title: 'Developer Details',
-    dev: dev
+    dev: dev,
+    games: games
   })
 }
 
@@ -62,3 +64,43 @@ exports.performUpdateDev = [
     }
   }
 ]
+
+exports.addDevPage = (req, res, next) => {
+  res.render('devAdd', {
+    title: 'Add New Developer'
+  });
+}
+
+const validateDev = [
+  body('newdevname').trim()
+    .isLength({min: 1, max: 60}).withMessage('Must be between 1 and 60 characters')
+]
+
+exports.addDevToDB = [
+  validateDev,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('devAdd', {
+        title: 'Update Developer',
+        errors: errors
+      })
+    }
+    console.log("Matched Data is ", matchedData(req));
+    try {
+      await db.addDev(matchedData(req));
+      res.redirect('/developers');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error')
+    }
+  }
+]
+
+exports.deleteDev = async (req, res, next) => {
+  const {developer_id} = req.params;
+  console.log('value of req.body:', req.params)
+  await db.deleteDev(developer_id);
+  res.redirect('/developers');
+}

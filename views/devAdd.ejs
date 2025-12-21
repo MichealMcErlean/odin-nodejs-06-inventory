@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article class="addDev">
+    <h1><%= title %></h1>
+    <form action="/developers/add/proceed" method="post" name="addDevForm" id="addDevForm">
+      <%- include('partials/errors.ejs') %>
+      <label for="newdevname">Name: </label>
+      <input type="text" name="newdevname" id="newdevname" required>
+      <button type="submit">Add New Developer</button>
+    </form>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

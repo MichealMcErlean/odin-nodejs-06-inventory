@@ -16,8 +16,27 @@
       <h1><%= dev[0].developer %></h1>
       <div class="buttonBox">
         <a href="/developers/update/<%= dev[0].developer_id %>">Update Details</a>
-        <a href="/developers/delete/<%= dev[0].developer_id %>">Delete Developer</a>
+        <form 
+          action="/developers/delete/<%= dev[0].developer_id %>" 
+          method="POST" 
+          style="display: inline;"
+          onsubmit="return confirm('Are you sure you want to delete this developer?');"
+        >
+          <button type="submit" class="fakelink">Delete Developer</button>
+        </form>
       </div>
+      <h2>Games from <%= dev[0].developer %></h2>
+      <% if (games.length === 0) {%>
+        <p>No games on record.</p>
+      <% } else { %>
+        <div class="gameList">
+          <% games.forEach(game => { %>
+            <div class="gameLink">
+              <a href="/games/<%= game.game_id %>"><%= game.name %></a>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
     <% } %>
   </article>
   <%- include('partials/footer.ejs') %>

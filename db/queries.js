@@ -80,6 +80,19 @@ async function updateDevById(developer_id, developer) {
   await pool.query('UPDATE developers SET developer = $1 WHERE developer_id = $2;', [developer, developer_id]);
 }
 
+async function addDev({newdevname}) {
+  await pool.query('INSERT INTO developers (developer) VALUES ($1);', [newdevname]);
+}
+
+async function deleteDev(developer_id) {
+  await pool.query('DELETE FROM developers WHERE developer_id = $1;', [developer_id]);
+}
+
+async function devGamesByDevId(developer_id) {
+  const {rows} = await pool.query('SELECT game_id, name FROM game_library WHERE developer_id = $1;', [developer_id]);
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -90,4 +103,7 @@ module.exports = {
   getGameById,
   getDevById,
   updateDevById,
+  addDev,
+  deleteDev,
+  devGamesByDevId
 }
