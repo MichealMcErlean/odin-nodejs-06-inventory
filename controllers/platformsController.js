@@ -44,3 +44,14 @@ exports.platformAddAction = [
     }
   }
 ]
+
+exports.platformDetails = async (req, res, next) => {
+  const {platform_id} = req.params;
+  const platform = await db.platformGetById(platform_id);
+  const games = await db.platformGetGamesByPlatformId(platform_id);
+  res.render('platformDetails', {
+    title: 'Platform Details',
+    platform,
+    games
+  })
+}

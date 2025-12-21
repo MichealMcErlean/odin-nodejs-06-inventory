@@ -145,6 +145,22 @@ async function platformAdd({newplatformname}) {
   await pool.query('INSERT INTO platforms (platform) VALUES ($1);', [newplatformname]);
 }
 
+async function platformGetById(platform_id) {
+  const {rows} = await pool.query('SELECT * FROM platforms WHERE platform_id = $1;', [platform_id]);
+  return rows;
+}
+
+async function platformGetGamesByPlatformId(platform_id) {
+  const {rows} = await pool.query(
+    `SELECT games.game_id, games.name
+    FROM games
+    JOIN game_platforms gp on games.game_id = gp.game_id
+    WHERE gp.platform_id = $1;`, 
+    [platform_id]
+  );
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -169,4 +185,6 @@ module.exports = {
   genreDelete,
   genreAdd,
   platformAdd,
+  platformGetById,
+  platformGetGamesByPlatformId,
 }
