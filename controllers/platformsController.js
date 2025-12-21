@@ -12,3 +12,35 @@ exports.platformsList = async (req, res, next) => {
     platforms
   });
 }
+
+exports.platformAddPage = async (req, res, next) => {
+  res.render('platformAdd', {
+    title: 'Add New Platform'
+  })
+}
+
+const validatePlatform = [
+  body('newplatformname').trim()
+    .isLength({min: 1, max: 60}).withMessage('Must be between 1 and 60 characters in length.')
+]
+
+exports.platformAddAction = [
+  validatePlatform,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('platformAdd', {
+        title: 'New Publisher',
+        errors: errors
+      })
+    }
+    try {
+      await db.platformAdd(matchedData(req));
+      res.redirect('/platforms');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error')
+    }
+  }
+]

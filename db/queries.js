@@ -141,6 +141,10 @@ async function genreAdd({newgenrename}) {
   await pool.query('INSERT INTO genres (genre) VALUES ($1);', [newgenrename]);
 }
 
+async function platformAdd({newplatformname}) {
+  await pool.query('INSERT INTO platforms (platform) VALUES ($1);', [newplatformname]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -164,4 +168,5 @@ module.exports = {
   genreUpdateById,
   genreDelete,
   genreAdd,
+  platformAdd,
 }
