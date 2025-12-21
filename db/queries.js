@@ -129,6 +129,10 @@ async function genreGetGamesByGenreId(genre_id) {
   return rows;
 }
 
+async function genreUpdateById(genre_id, newgenrename) {
+  await pool.query('UPDATE genres SET genre = $1 WHERE genre_id = $2;', [newgenrename, genre_id]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -149,4 +153,5 @@ module.exports = {
   pubDelete,
   genreGetById,
   genreGetGamesByGenreId,
+  genreUpdateById,
 }

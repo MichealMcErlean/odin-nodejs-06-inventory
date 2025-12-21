@@ -24,3 +24,41 @@ exports.genreDetails = async (req, res, next) => {
     games
   })
 }
+
+exports.genreUpdatePage = async (req, res, next) => {
+  const {genre_id} = req.params;
+  const genre = await db.genreGetById(genre_id);
+  res.render('genreUpdate', {
+    title: 'Update Genre',
+    genre
+  })
+}
+
+const validateGenre = [
+  body('newgenrename').trim()
+    .isLength({min: 1, max: 60}).withMessage('Must be between 1 and 60 characters in length.')
+]
+
+exports.genreUpdateGenre = [
+  validateGenre,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('genreUpdate', {
+        title: 'Update Genre',
+        errors: errors
+      })
+    }
+    const {genre_id} = req.params;
+    const {newgenrename} = matchedData(req);
+
+    try {
+      await db.genreUpdateById(genre_id, newgenrename);
+      res.redirect('/genres');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+]
