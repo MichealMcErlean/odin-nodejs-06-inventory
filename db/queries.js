@@ -161,6 +161,10 @@ async function platformGetGamesByPlatformId(platform_id) {
   return rows;
 }
 
+async function platformUpdateById(platform_id, newplatformname) {
+  await pool.query('UPDATE platforms SET platform = $1 WHERE platform_id = $2;', [newplatformname, platform_id]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -187,4 +191,5 @@ module.exports = {
   platformAdd,
   platformGetById,
   platformGetGamesByPlatformId,
+  platformUpdateById,
 }

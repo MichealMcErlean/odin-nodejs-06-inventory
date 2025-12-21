@@ -55,3 +55,36 @@ exports.platformDetails = async (req, res, next) => {
     games
   })
 }
+
+exports.platformUpdatePage = async (req, res, next) => {
+  const {platform_id} = req.params;
+  const platform = await db.platformGetById(platform_id);
+  res.render('platformUpdate', {
+    title: 'Update Platform',
+    platform
+  })
+}
+
+exports.platformUpdateAction = [
+  validatePlatform,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('platformUpdate', {
+        title: 'Update Genre',
+        errors: errors
+      })
+    }
+    const {platform_id} = req.params;
+    const {newplatformname} = matchedData(req);
+
+    try {
+      await db.platformUpdateById(platform_id, newplatformname);
+      res.redirect('/platforms');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+]
