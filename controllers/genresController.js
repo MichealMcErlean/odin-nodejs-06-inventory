@@ -13,3 +13,14 @@ exports.genreList = async (req, res, next) => {
     genres
   });
 }
+
+exports.genreDetails = async (req, res, next) => {
+  const {genre_id} = req.params;
+  const genre = await db.genreGetById(genre_id);
+  const games = await db.genreGetGamesByGenreId(genre_id);
+  res.render('genreDetails', {
+    title: 'Genre Details',
+    genre,
+    games
+  })
+}

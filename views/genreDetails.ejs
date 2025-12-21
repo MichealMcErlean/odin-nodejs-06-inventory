@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article>
+    <% if (genre.length===0) {%>
+      <p>No genre has that ID.</p>
+      <% } else { %>
+        <h1>
+          <%= genre[0].genre %>
+        </h1>
+        <div class="buttonBox">
+          <a href="/genres/update/<%= genre[0].genre_id %>">Update Details</a>
+          <form action="/genre/delete/<%= genre[0].genre_id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this genre?');">
+            <button type="submit" class="fakelink">Delete Genre</button>
+          </form>
+        </div>
+        <h2>Games in the genre <%= genre[0].genre %>
+        </h2>
+        <% if (games.length===0) {%>
+          <p>No games on record.</p>
+        <% } else { %>
+          <div class="gameList">
+            <% games.forEach(game=> { %>
+              <div class="gameLink">
+                <a href="/games/<%= game.game_id %>">
+                  <%= game.name %>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+      <% } %>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

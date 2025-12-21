@@ -115,6 +115,20 @@ async function pubDelete(publisher_id) {
   await pool.query('DELETE FROM publishers WHERE publisher_id = $1;', [publisher_id]);
 }
 
+async function genreGetById(genre_id) {
+  const {rows} = await pool.query('SELECT * FROM genres WHERE genre_id = $1;', [genre_id]);
+  return rows;
+}
+
+async function genreGetGamesByGenreId(genre_id) {
+  const {rows} = await pool.query(
+      `SELECT games.game_id, games.name 
+       FROM games
+       JOIN game_genres gg ON games.game_id = gg.game_id
+       WHERE gg.genre_id = $1;`, [genre_id])
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -133,4 +147,6 @@ module.exports = {
   pubGetGamesByPubId,
   pubUpdateById,
   pubDelete,
+  genreGetById,
+  genreGetGamesByGenreId,
 }

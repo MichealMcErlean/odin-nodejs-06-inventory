@@ -18,8 +18,8 @@
         </h1>
         <div class="buttonBox">
           <a href="/publishers/update/<%= pub[0].publisher_id %>">Update Details</a>
-          <form action="/publishers/delete/<%= pub[0].publisher_id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this developer?');">
-            <button type="submit" class="fakelink">Delete Developer</button>
+          <form action="/publishers/delete/<%= pub[0].publisher_id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this publisher?');">
+            <button type="submit" class="fakelink">Delete Publisher</button>
           </form>
         </div>
         <h2>Games from <%= pub[0].publisher %>
