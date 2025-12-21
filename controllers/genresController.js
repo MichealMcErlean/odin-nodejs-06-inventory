@@ -65,7 +65,6 @@ exports.genreUpdateGenre = [
 ]
 
 exports.genreDelete = async (req, res, next) => {
-  console.log('made it to genreDelete controller')
   const {genre_id} = req.params;
   await db.genreDelete(genre_id);
   res.redirect('/genres');

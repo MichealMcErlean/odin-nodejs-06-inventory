@@ -11,14 +11,14 @@
   <%- include('partials/nav') %>
   <article>
     <h1><%= title %></h1>
-    <a href="/genres/add">Add New Genre</a>
+    <a href="/platforms/add">Add New Platform</a>
     <div class="devList">
-      <% if (genres.length === 0) {%>
+      <% if (platforms.length===0) {%>
         <p>No entries in database.</p>
       <% } else { %>
-        <% genres.forEach(genre => { %>
-          <a href="/genres/<%= genre.genre_id %>">
-            <%= genre.genre %>
+        <% platforms.forEach(platform=> { %>
+          <a href="/platforms/<%= platform.platform_id %>">
+            <%= platform.platform %>
           </a>
         <% }); %>
       <% } %>
