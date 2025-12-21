@@ -107,6 +107,10 @@ async function pubGetGamesByPubId(publisher_id) {
   return rows;
 }
 
+async function pubUpdateById(publisher_id, newpubname) {
+  await pool.query('UPDATE publishers SET publisher = $1 WHERE publisher_id = $2;', [newpubname, publisher_id]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -123,4 +127,5 @@ module.exports = {
   addPub,
   pubGetById,
   pubGetGamesByPubId,
+  pubUpdateById,
 }

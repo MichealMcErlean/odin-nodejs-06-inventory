@@ -201,7 +201,7 @@ button.fakelink:active {
   justify-content: space-around;
 }
 
-#devUpdateForm {
+.siteForm {
   padding: 15px;
   display: grid;
   grid-template-columns: 150px 300px;
@@ -210,11 +210,11 @@ button.fakelink:active {
   align-items: center;
 }
 
-#devUpdateForm button {
+.siteForm button {
   grid-column: 1 / span 2;
 }
 
-#devUpdateForm label {
+.siteForm label {
   justify-self: right;
 }
 

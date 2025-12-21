@@ -11,7 +11,7 @@
   <%- include('partials/nav') %>
   <article>
     <h1><%= title %></h1>
-    <form action="/developers/update/<%= dev[0].developer_id %>/proceed" method="post" name="devUpdateForm" id="devUpdateForm">
+    <form action="/developers/update/<%= dev[0].developer_id %>/proceed" method="post" name="devUpdateForm" id="devUpdateForm" class="siteForm">
       <%- include('partials/errors.ejs') %>
       <label for="devname">Name: </label>
       <input type="text" name="devname" id="devname" required value="<%= dev[0].developer %>">

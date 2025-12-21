@@ -58,3 +58,36 @@ exports.pubGetDetails = async (req, res, next) => {
     games
   });
 }
+
+exports.pubUpdatePage = async (req, res, next) => {
+  const {publisher_id} = req.params;
+  const pub = await db.pubGetById(publisher_id);
+  res.render('pubUpdate', {
+    title: 'Update Publisher',
+    pub
+  })
+}
+
+exports.pubUpdatePub = [
+  validatePub,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('pubUpdate', {
+        title: 'Update Publisher',
+        errors: errors
+      })
+    }
+    const {publisher_id} = req.params;
+    const {newpubname} = matchedData(req);
+
+    try {
+      await db.pubUpdateById(publisher_id, newpubname);
+      res.redirect('/publishers');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+]
