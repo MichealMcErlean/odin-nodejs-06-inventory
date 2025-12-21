@@ -88,3 +88,9 @@ exports.platformUpdateAction = [
     }
   }
 ]
+
+exports.platformDelete = async (req, res, next) => {
+  const {platform_id} = req.params;
+  await db.platformDelete(platform_id);
+  res.redirect('/platforms');
+}

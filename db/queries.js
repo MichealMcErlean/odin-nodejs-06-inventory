@@ -165,6 +165,10 @@ async function platformUpdateById(platform_id, newplatformname) {
   await pool.query('UPDATE platforms SET platform = $1 WHERE platform_id = $2;', [newplatformname, platform_id]);
 }
 
+async function platformDelete(platform_id) {
+  await pool.query('DELETE FROM platforms WHERE platform_id = $1;', [platform_id]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -192,4 +196,5 @@ module.exports = {
   platformGetById,
   platformGetGamesByPlatformId,
   platformUpdateById,
+  platformDelete,
 }
