@@ -91,3 +91,9 @@ exports.pubUpdatePub = [
     }
   }
 ]
+
+exports.pubDelete = async (req, res, next) => {
+  const {publisher_id} = req.params;
+  await db.pubDelete(publisher_id);
+  res.redirect('/publishers'); 
+}
