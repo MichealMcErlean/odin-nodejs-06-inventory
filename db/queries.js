@@ -133,6 +133,14 @@ async function genreUpdateById(genre_id, newgenrename) {
   await pool.query('UPDATE genres SET genre = $1 WHERE genre_id = $2;', [newgenrename, genre_id]);
 }
 
+async function genreDelete(genre_id) {
+  await pool.query('DELETE FROM genres WHERE genre_id = $1;', [genre_id]);
+}
+
+async function genreAdd({newgenrename}) {
+  await pool.query('INSERT INTO genres (genre) VALUES ($1);', [newgenrename]);
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -154,4 +162,6 @@ module.exports = {
   genreGetById,
   genreGetGamesByGenreId,
   genreUpdateById,
+  genreDelete,
+  genreAdd,
 }

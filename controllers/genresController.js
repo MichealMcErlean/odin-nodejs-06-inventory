@@ -16,6 +16,7 @@ exports.genreList = async (req, res, next) => {
 
 exports.genreDetails = async (req, res, next) => {
   const {genre_id} = req.params;
+  console.log('genre_id is', genre_id)
   const genre = await db.genreGetById(genre_id);
   const games = await db.genreGetGamesByGenreId(genre_id);
   res.render('genreDetails', {
@@ -59,6 +60,40 @@ exports.genreUpdateGenre = [
     } catch(err) {
       console.error("Controller Error:", err);
       res.status(500).send('Internal Server Error');
+    }
+  }
+]
+
+exports.genreDelete = async (req, res, next) => {
+  console.log('made it to genreDelete controller')
+  const {genre_id} = req.params;
+  await db.genreDelete(genre_id);
+  res.redirect('/genres');
+}
+
+exports.genreAddPage = async (req, res, next) => {
+  res.render('genreAdd', {
+    title: 'Add New Genre'
+  })
+}
+
+exports.genreAddAction = [
+  validateGenre,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log('Errors detected');
+      return res.status(400).render('genreAdd', {
+        title: 'New Publisher',
+        errors: errors
+      })
+    }
+    try {
+      await db.genreAdd(matchedData(req));
+      res.redirect('/genres');
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error')
     }
   }
 ]
