@@ -1,22 +1,22 @@
 const pool = require('./pool');
 
 async function getAllDevelopers() {
-  const { rows } = await pool.query('SELECT * FROM developers;');
+  const { rows } = await pool.query('SELECT * FROM developers ORDER BY developer;');
   return rows;
 }
 
 async function getAllPublishers() {
-  const { rows } = await pool.query('SELECT * FROM publishers;')
+  const { rows } = await pool.query('SELECT * FROM publishers ORDER BY publisher;')
   return rows;
 }
 
 async function getAllGenres() {
-  const { rows } = await pool.query('SELECT * FROM genres;');
+  const { rows } = await pool.query('SELECT * FROM genres ORDER BY genre;');
   return rows;
 }
 
 async function getAllPlatforms() {
-  const {rows} = await pool.query('SELECT * FROM platforms;');
+  const {rows} = await pool.query('SELECT * FROM platforms ORDER BY platform;');
   return rows;
 }
 
