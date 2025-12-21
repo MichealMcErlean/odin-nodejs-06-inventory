@@ -99,10 +99,12 @@ async function addPub({newpubname}) {
 
 async function pubGetById(publisher_id) {
   const {rows} = await pool.query('SELECT * FROM publishers WHERE publisher_id = $1;', [publisher_id]);
+  return rows;
 }
 
 async function pubGetGamesByPubId(publisher_id) {
   const {rows} = await pool.query('SELECT game_id, name FROM game_library WHERE publisher_id = $1;', [publisher_id])
+  return rows;
 }
 
 module.exports = {

@@ -50,6 +50,8 @@ exports.pubGetDetails = async (req, res, next) => {
   const {publisher_id} = req.params;
   const pub = await db.pubGetById(publisher_id);
   const games = await db.pubGetGamesByPubId(publisher_id);
+  console.log('pub contents:', pub);
+  console.log('games contents:', games)
   res.render('pubDetails', {
     title: 'Publisher Details',
     pub,
