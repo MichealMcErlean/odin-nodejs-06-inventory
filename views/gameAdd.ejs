@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/scripts/fieldset.js" defer></script>
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article>
+    <h1><%= title %></h1>
+    <%- include('partials/errors.ejs') %>
+    <form action="/games/add/proceed" method="post" name="addGameForm" id="addGameForm" class="searchForm">
+
+      <label for="gameName">Name:</label>
+      <input type="text" name="gameName" id="gameName" required>
+
+      <label for="gamePrice">Price:</label>
+      <input type="number" min="0" step="0.01" placeholder="0.00" name="gamePrice" id="gamePrice" required>
+
+      <label for="gameQuantity">Quantity:</label>
+      <input type="number" name="gameQuantity" id="gameQuantity" required>
+      
+
+      <label for="gameReleaseDate">Release date:</label>
+      <input type="date" name="gameReleaseDate" id="gameReleaseDate" required>
+
+      <label for="gameDeveloper">Developer:</label>
+      <select name="gameDeveloper" id="gameDeveloper" required>
+        <option value="" disabled selected hidden>Select from:</option>
+        <% if(Array.isArray(developers)) { %>
+          <% developers.forEach(row => { %>
+            <option value="<%= row.developer_id %>">
+              <%= row.developer %>
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+
+      <label for="gamePublisher">Publisher: </label>
+      <select name="gamePublisher" id="gamePublisher">
+        <option value="" disabled hidden>Select from:</option>
+        <% if (Array.isArray(publishers)) {%>
+          <% publishers.forEach( (row)=> { %>
+            <option value="<%= row.publisher_id %>">
+              <%= row.publisher %>
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+
+      <fieldset id="platformField" class="required-group">
+        <legend>Platforms</legend>
+        <% if (Array.isArray(platforms)) { %>
+          <% platforms.forEach(row => { %>
+            <div class="fieldsetValue">
+              <input type="checkbox" name="gamePlatforms[]" id="gp<%= row.platform_id %>" value="<%= row.platform_id %>">
+              <label for="gp<%= row.platform_id %>"><%= row.platform %></label>
+            </div>
+          <% }); %>
+        <% } %>
+      </fieldset>
+
+      <fieldset id="genreField" class="required-group">
+        <legend>Genres</legend>
+        <% if (Array.isArray(genres)) { %>
+          <% genres.forEach(row=> { %>
+            <div class="fieldsetValue">
+              <input type="checkbox" name="gameGenres[]" id="gg<%= row.genre_id %>" value="<%= row.genre_id %>">
+              <label for="gg<%= row.genre_id %>">
+                <%= row.genre %>
+              </label>
+            </div>
+          <% }); %>
+        <% } %>
+      </fieldset>
+
+      <button type="submit">Add New Game</button>
+    </form>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

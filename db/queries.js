@@ -169,6 +169,14 @@ async function platformDelete(platform_id) {
   await pool.query('DELETE FROM platforms WHERE platform_id = $1;', [platform_id]);
 }
 
+async function gameAdd({gameName, gamePrice, gameQuantity, gameReleaseDate, gameDeveloper, gamePublisher, gamePlatforms, gameGenres}) {
+  await pool.query(
+    `INSERT INTO game_library (name, price, quantity, release_date, developer_id, publisher_id, platform_ids, genre_ids)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+    [gameName, gamePrice, gameQuantity, gameReleaseDate, gameDeveloper, gamePublisher, gamePlatforms, gameGenres]
+  );
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -197,4 +205,5 @@ module.exports = {
   platformGetGamesByPlatformId,
   platformUpdateById,
   platformDelete,
+  gameAdd,
 }

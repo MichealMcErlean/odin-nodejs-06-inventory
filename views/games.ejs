@@ -10,6 +10,8 @@
   <%- include('partials/header.ejs') %>
   <%- include('partials/nav') %>
   <article>
+    <h1><%= title %></h1>
+    <a href="/games/add">Add New Game</a>
     <div class="gameList">
       <% if (games.length === 0) {%>
         <p>No entries in database.</p>

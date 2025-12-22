@@ -1,4 +1,4 @@
-<% if (locals.errors) {%>
+<% if (locals.errors && Array.isArray(locals.errors)) {%>
   <ul>
     <% errors.forEach((error) => { %>
       <li><%= error.msg %></li>

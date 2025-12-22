@@ -139,10 +139,10 @@ button.fakelink:active {
   padding: 10px;
   border: 2px solid #dddddd;
   display: grid;
-  grid-template-columns: 150px 200px;
+  grid-template-columns: 230px 230px;
   grid-auto-rows: fit-content;
   gap: 15px;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .searchForm .formIntro {
@@ -157,6 +157,14 @@ button.fakelink:active {
   grid-column: 1 / span 2;
   padding: 10px;
   background-color: antiquewhite;
+}
+
+.searchForm fieldset {
+  grid-column: 1 / span 2;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: fit-content;
 }
 
 .searchResults {
