@@ -177,6 +177,28 @@ async function gameAdd({gameName, gamePrice, gameQuantity, gameReleaseDate, game
   );
 }
 
+async function getGameViewById(game_id) {
+  const {rows} = await pool.query('SELECT * FROM game_library WHERE game_id = $1;', [game_id]);
+  return rows;
+}
+
+async function gameUpdate(game_id, {newName, newPrice, newQuantity, newReleaseDate, newDeveloper, newPublisher, newPlatforms, newGenres}) {
+  await pool.query(
+    `UPDATE game_library 
+      SET 
+        name = $1, 
+        price = $2, 
+        quantity = $3, 
+        release_date = $4, 
+        developer_id = $5, 
+        publisher_id = $6, 
+        platform_ids = $7, 
+        genre_ids = $8 
+      WHERE game_id = $9;`, 
+        [newName, newPrice, newQuantity, newReleaseDate, newDeveloper, newPublisher, newPlatforms, newGenres, game_id]
+  );
+}
+
 module.exports = {
   getAllDevelopers,
   getAllPublishers,
@@ -206,4 +228,6 @@ module.exports = {
   platformUpdateById,
   platformDelete,
   gameAdd,
+  getGameViewById,
+  gameUpdate,
 }

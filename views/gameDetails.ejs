@@ -39,7 +39,8 @@
       </div>
       
       <div class="buttonBox">
-        <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button>
+        <!-- <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button> -->
+        <a href="/games/update/<%= game[0].game_id %>">Update Details</a>
         <button type="button" action="/games/delete/<%= game[0].game_id %>" method="GET">Delete Game</button>
       </div>
     <% } %>
