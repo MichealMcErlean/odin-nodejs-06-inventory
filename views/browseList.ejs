@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= category.labelPlural %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article>
+    <h1><%= category.labelPlural %></h1>
+    <a href="/browse/<%= category.table %>/add">Add New <%= category.labelSingle %></a>
+    <div class="devList">
+      <% if (list.length === 0) {%>
+        <p>No entries in database.</p>
+      <% } else { %>
+        <% list.forEach(item => { %>
+          <% let cat_id = category.name + '_id'; %>
+          <a 
+            href="/browse/<%= category.table %>/<%= item.id %>"
+          >
+            <%= item.name %>
+          </a>
+        <% }); %>
+      <% } %>
+    </div>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

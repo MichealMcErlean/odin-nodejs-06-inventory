@@ -9,6 +9,7 @@ const developersRouter = require('./routes/developersRouter')
 const publishersRouter = require('./routes/publishersRouter')
 const genresRouter = require('./routes/genresRouter');
 const platformsRouter = require('./routes/platformsRouter');
+const browseRouter = require('./routes/browseRouter');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -17,12 +18,16 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
 
 // Routers
+app.use('/', indexRouter);
+app.use('/games', gamesRouter);
+app.use('/browse', browseRouter);
+
 app.use('/platforms', platformsRouter);
 app.use('/genres', genresRouter);
 app.use('/publishers', publishersRouter);
 app.use('/developers', developersRouter);
-app.use('/games', gamesRouter);
-app.use('/', indexRouter);
+
+
 //Error Handling
 app.use((err, req, res, next) => {
   console.error('SERVER ERROR:', err.stack);

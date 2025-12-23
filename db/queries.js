@@ -203,7 +203,49 @@ async function gameDelete(game_id) {
   await pool.query('DELETE FROM game_library WHERE game_id = $1;', [game_id]);
 }
 
+async function browseListCategory(table, name) {
+  let idColumn = `${name}_id`;
+  let nameColumn = name;
+  const {rows} = await pool.query(
+      `SELECT ${idColumn} as id, ${nameColumn} as name FROM ${table} ORDER BY ${name}`);
+  return rows;
+}
+
+async function browseGetById(category, id) {
+  let idCol = `${category.name}_id`;
+
+  const {rows} = await pool.query(
+    `SELECT ${idCol} as id, ${category.name} as name
+     FROM ${category.table}
+     WHERE ${idCol} = $1;`, [id]);
+  return rows;
+}
+
+async function browseGetGamesByCatId(category, id) {
+  const idCol = `${category.name}_id`;
+
+  let query;
+  if (category.junction) {
+    query = `
+        SELECT gl.name, gl.game_id AS id FROM game_library gl
+        JOIN ${category.junction} j ON gl.game_id = j.game_id
+        WHERE j.${idCol} = $1
+        ORDER BY gl.name ASC;`
+  } else {
+    query = `
+        SELECT gl.name, gl.game_id AS id FROM game_library gl
+        WHERE ${idCol} = $1
+        ORDER BY gl.name ASC;`
+  }
+
+  const {rows} = await pool.query(query, [id]);
+  return rows;
+}
+
 module.exports = {
+  browseListCategory,
+  browseGetById,
+  browseGetGamesByCatId,
   getAllDevelopers,
   getAllPublishers,
   getAllGenres,

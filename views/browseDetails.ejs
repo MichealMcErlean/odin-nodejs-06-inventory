@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Details</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header.ejs') %>
+  <%- include('partials/nav') %>
+  <article>
+    <% if (item.length === 0) {%>
+      <p>No entry with that ID.</p>
+    <% } else { %>
+      <h1><%= item[0].name %></h1>
+      <div class="buttonbox">
+        <a href="/browse/<%= category.table %>/update/<%= item[0].id %>">Update Details</a>
+        <form 
+          action="/browse/<%= category.table %>/delete/<%= item[0].id %>"
+          method="POST" style="display: inline;"
+          onsubmit="return confirm('Are you sure you wish to delete this item?');"
+        >
+          <button type="submit" class="fakelink">Delete <%= category.labelSingle %></button>
+        </form>
+      </div>
+      <h2>Games under <%= item[0].name %></h2>
+      <% if (games.length === 0) {%>
+        <p>No games on record.</p>
+      <% } else { %>
+        <div class="gameList">
+          <% games.forEach(game => { %>
+            <div class="gameLink">
+              <a href="/games/<%= game.id %>">
+                <%= game.name %>
+              </a>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    <% } %>
+  </article>
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>
