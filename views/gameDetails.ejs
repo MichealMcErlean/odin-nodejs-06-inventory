@@ -41,7 +41,9 @@
       <div class="buttonBox">
         <!-- <button action="/games/update/<%= game[0].game_id %>" method="GET" type="button">Update Details</button> -->
         <a href="/games/update/<%= game[0].game_id %>">Update Details</a>
-        <button type="button" action="/games/delete/<%= game[0].game_id %>" method="GET">Delete Game</button>
+        <form action="/games/delete/<%= game[0].game_id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this game?');">
+          <button type="submit" class="fakelink">Delete Game</button>
+        </form>
       </div>
     <% } %>
   </article>

@@ -2,6 +2,7 @@ const {Router} = require('express');
 const gamesController = require('../controllers/gamesController.js')
 const gamesRouter = Router();
 
+gamesRouter.post('/delete/:game_id', gamesController.gameDelete);
 gamesRouter.post('/update/:game_id/proceed', gamesController.gameUpdateAction)
 gamesRouter.get('/update/:game_id', gamesController.gameUpdatePage)
 gamesRouter.post('/add/proceed', gamesController.gameAddAction);

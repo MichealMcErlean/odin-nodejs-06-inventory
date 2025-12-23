@@ -182,3 +182,9 @@ exports.gameUpdateAction = [
     }
   }
 ]
+
+exports.gameDelete = async (req, res, next) => {
+  const {game_id} = req.params;
+  await db.gameDelete(game_id);
+  res.redirect('/games');
+}
