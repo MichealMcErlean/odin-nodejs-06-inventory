@@ -5,10 +5,6 @@ const path = require('path');
 const app = express();
 const indexRouter = require('./routes/indexRouter')
 const gamesRouter = require('./routes/gamesRouter')
-const developersRouter = require('./routes/developersRouter')
-const publishersRouter = require('./routes/publishersRouter')
-const genresRouter = require('./routes/genresRouter');
-const platformsRouter = require('./routes/platformsRouter');
 const browseRouter = require('./routes/browseRouter');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -21,12 +17,6 @@ app.use(express.static(assetsPath));
 app.use('/', indexRouter);
 app.use('/games', gamesRouter);
 app.use('/browse', browseRouter);
-
-app.use('/platforms', platformsRouter);
-app.use('/genres', genresRouter);
-app.use('/publishers', publishersRouter);
-app.use('/developers', developersRouter);
-
 
 //Error Handling
 app.use((err, req, res, next) => {
