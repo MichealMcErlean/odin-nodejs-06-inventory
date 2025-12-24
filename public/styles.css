@@ -92,10 +92,12 @@ nav ul {
 
 nav li {
   padding: 10px;
+  color: var(--text-color);
 }
 
 nav a {
   text-decoration: none;
+  color: var(--text-color);
 }
 
 nav a:hover {
