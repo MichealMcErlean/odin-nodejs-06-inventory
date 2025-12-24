@@ -29,6 +29,8 @@
   --bg-color-frame: #ecc76f;
   --bg-color-article: #fdf6e3;
   --text-color: #000000;
+  --link-color: blue;
+  --link-visited-color: purple;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +38,8 @@
     --bg-color-frame: #222222;
     --bg-color-article: #333333;
     --text-color: #ffffff;
+    --link-color: rgb(68, 202, 255);
+    --link-visited-color: rgb(250, 149, 250);
   }
 }
 
@@ -83,6 +87,7 @@ nav {
 nav ul {
   list-style: none;
   font-size: 2.2rem;
+  color: var(--text-color);
 }
 
 nav li {
@@ -128,6 +133,14 @@ article {
   box-shadow: 5px 5px 10px black;
 }
 
+article :link {
+  color: var(--link-color);
+}
+
+article :visited {
+  color: var(--link-visited-color);
+}
+
 h1, h2, h3,
 h4, h5, h6 {
   font-family: 'lexendregular';
@@ -151,7 +164,7 @@ button.fakelink {
   font-size: 1.6rem;
   border: none;
   background-color: transparent;
-  color: blue;
+  color: var(--link-color);
   text-decoration: underline;
   font-family: 'roboto_monoregular';
 }
