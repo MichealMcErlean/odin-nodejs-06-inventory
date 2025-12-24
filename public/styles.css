@@ -105,11 +105,11 @@ nav a:hover {
 }
 
 nav a:link {
-  color: black;
+  color: var(--text-color);
 }
 
 nav a:visited {
-  color: black;
+  color: var(--link-visited-color)
 }
 
 nav a:active {
