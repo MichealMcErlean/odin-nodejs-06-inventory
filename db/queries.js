@@ -242,10 +242,42 @@ async function browseGetGamesByCatId(category, id) {
   return rows;
 }
 
+async function browseAdd(category, {newItem}) {
+  let nameCol = category.name;
+  let table = category.table;
+
+  await pool.query(
+    `INSERT INTO ${table} (${nameCol}) VALUES ($1);`, [newItem]
+  )
+}
+
+async function browseUpdate(category, id, {newItem}) {
+  let idCol = `${category.name}_id`;
+  let table = category.table;
+  let name = category.name;
+
+  await pool.query(
+    `UPDATE ${table} SET ${name} = $1 WHERE ${idCol} = $2;`,
+    [newItem, id]
+  )
+}
+
+async function browseDelete(category, id) {
+  let idCol = `${category.name}_id`;
+  let table = category.table;
+
+  await pool.query(
+    `DELETE FROM ${table} WHERE ${idCol} = $1;`, [id]
+  );
+}
+
 module.exports = {
   browseListCategory,
   browseGetById,
   browseGetGamesByCatId,
+  browseAdd,
+  browseUpdate,
+  browseDelete,
   getAllDevelopers,
   getAllPublishers,
   getAllGenres,

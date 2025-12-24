@@ -36,3 +36,98 @@ exports.showSingle = async (req, res, next) => {
     games
   });
 }
+
+exports.addItemPage = async (req, res, next) => {
+  const categoryType = req.params.categoryType;
+  const category = categoryMap[categoryType];
+  res.render('browseAdd', {
+    category
+  })
+}
+
+const validateItem = [
+  body('newItem').trim()
+    .isLength({min: 1, max: 60}).withMessage('Must be between 1 and 60 characters in length')
+]
+
+exports.addItemAction = [
+  validateItem,
+  async (req, res, next) => {
+    const categoryType = req.params.categoryType;
+    const category = categoryMap[categoryType];
+    const errors = validationResult(req).errors;
+
+    console.log('Value of category:', category);
+    console.log('Value of categoryType:', categoryType)
+
+    if (errors.length != 0) {
+      console.log('Errors detected');
+      return res.status(400).render('browseAdd', {
+        category,
+        errors
+      })
+    }
+
+    try {
+      await db.browseAdd(category, matchedData(req));
+      res.redirect('/browse/' + category.table);
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error')
+    }
+
+  }
+]
+
+exports.updatePage = async (req, res, next) => {
+  const categoryType = req.params.categoryType;
+  const category = categoryMap[categoryType];
+  const id = req.params.id
+
+  const item = await db.browseGetById(category, id);
+  console.log('Value of item:', item)
+
+  res.render('browseUpdate', {
+    item: item[0],
+    category,
+    id
+  });
+}
+
+exports.updateAction = [
+  validateItem,
+  async (req, res, next) => {
+    const categoryType = req.params.categoryType;
+    const category = categoryMap[categoryType];
+    const id = req.params.id;
+
+    const errors = validationResult(req).errors;
+    if (errors.length != 0) {
+      console.log('Errors detected');
+      const item = await db.browseGetById(category, id);
+      return res.status(400).render('browseUpdate', {
+        item: item[0],
+        category,
+        id,
+        errors
+      })
+    }
+
+    try {
+      await db.browseUpdate(category, id, matchedData(req));
+      res.redirect(`/browse/${category.table}`);
+    } catch(err) {
+      console.error("Controller Error:", err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+]
+
+exports.deleteItem = async (req, res, next) => {
+  const categoryType = req.params.categoryType;
+  const category = categoryMap[categoryType];
+  const id = req.params.id;
+
+  await db.browseDelete(category, id);
+  res.redirect(`/browse/${category.table}`);
+}
