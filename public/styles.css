@@ -109,7 +109,7 @@ nav a:link {
 }
 
 nav a:visited {
-  color: var(--link-visited-color)
+  color: var(--text-color)
 }
 
 nav a:active {
