@@ -13,9 +13,9 @@ const schema = loadFile('schema.sql');
 
 async function main() {
   console.log('Seeding...');
-  console.log(process.env.DATABASE_URI);
+  console.log(process.env.DATABASE_URI_PROD);
   const client = new Client({
-    connectionString: process.env.DATABASE_URI,
+    connectionString: process.env.DATABASE_URI_PROD,
     ssl: {rejectUnauthorized: false}
   });
 
