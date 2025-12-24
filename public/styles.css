@@ -7,6 +7,15 @@
 
 }
 
+@font-face {
+  font-family: 'roboto_monoregular';
+  src: url('robotomono-variablefont_wght-webfont.woff2') format('woff2'),
+    url('robotomono-variablefont_wght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -16,9 +25,9 @@
 
 :root {
   font-size: 10px;
-  font-family: 'lexendregular';
-  --bg-color-frame: antiquewhite;
-  --bg-color-article: aliceblue;
+  font-family: 'roboto_monoregular';
+  --bg-color-frame: #ecc76f;
+  --bg-color-article: #fdf6e3;
   --text-color: #000000;
 }
 
@@ -64,6 +73,7 @@ nav {
   grid-area: nav;
   background-color: var(--bg-color-frame);
   color: var(--text-color);
+  font-family: 'lexendregular';
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,6 +124,21 @@ article {
   color: var(--text-color);
   padding: 10px;
   line-height: 1.8;
+  z-index: 1;
+  box-shadow: 5px 5px 10px black;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+  font-family: 'lexendregular';
+}
+
+label {
+  font-family: 'lexendregular';
+}
+
+input {
+  font-family: 'roboto_monoregular';
 }
 
 button {
@@ -128,6 +153,7 @@ button.fakelink {
   background-color: transparent;
   color: blue;
   text-decoration: underline;
+  font-family: 'roboto_monoregular';
 }
 
 button.fakelink:active {
@@ -192,6 +218,7 @@ button.fakelink:active {
   font-size: 2.4rem;
   font-weight: bold;
   justify-self: right;
+  font-family: 'lexendregular';
 }
 
 .gameDetails .detailBlock {
@@ -205,8 +232,9 @@ button.fakelink:active {
 .gameDetails .buttonBox {
   padding: 20px;
   display: flex;
-  gap: 30px;
+  gap: 20px;
   justify-content: space-around;
+  align-items: center;
 }
 
 .siteForm {
